@@ -1,0 +1,27 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": "last 2 versions, not dead, not ie 6-11",
+        "modules": false,
+        "useBuiltIns": false,
+        "corejs": null
+      }
+    ]
+  ],
+  "plugins": [
+    "@babel/plugin-syntax-dynamic-import",
+    ["@babel/plugin-transform-react-jsx", { "pragma": "h" }],
+    ["babel-plugin-jsx-pragmatic", {
+      "module": "preact",
+      "import": "h",
+      "export": "h"
+    }]
+  ],
+  "env": {
+    "test": {
+      "presets": [["@babel/preset-env"]]
+    }
+  }
+}

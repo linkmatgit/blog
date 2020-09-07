@@ -1,0 +1,97 @@
+// Variables
+// ==================
+:root {
+  --color-dark: #000;
+  --color: #121C42;
+  --color-light: #121C4299;
+  --color-inversed: #EFFBEC;
+  --color-transparent: #{rgba(#121C42, 0)};
+  --color-btn: #EFFBEC;
+  --contrast: #4869EE;
+  --gap: 20px;
+  --space: 8px;
+  --border: #D5E3EC;
+  --border-light: #D5E3EC7F;
+  --background: #F7FAFB;
+  --background-light: #FFF;
+  --shadow: #D8E1E8;
+  --list-hover: var(--background);
+  --play: #F3F9FB; // Couleur de fond du bouton play
+  --space-section: 150px;
+  --card-footer: #F7FAFD;
+  --card-padding: 16px;
+  --header-height: 137px;
+  --red: #FB4635;
+  --green: #41CF7C;
+  --yellow: #FEB32B;
+}
+
+.dark {
+  --color-dark: #FFF;
+  --color: #EFFBEC;
+  --color-light: #EFFBEC99;
+  --color-inversed: #121C42;
+  --contrast: #61a0f6;
+  --gap: 20px;
+  --space: 8px;
+  --border: #122c45;
+  --background: #11172e;
+  --background-light: #202248;
+  --shadow: #0b0c1a;
+  --play: #1d1d3a;
+  --list-hover: #282a5a;
+  --card-footer: #{darken(#202248, 3)};
+}
+
+// Outils
+// ==================
+@import "tools/reset";
+@import "tools/functions";
+@import "tools/mixins";
+@import "tools/layout";
+@import "tools/typography";
+@import "tools/animations";
+
+// Generic
+// ==================
+body {
+  font-family: $font;
+  font-size: 16px;
+  color: var(--color);
+  line-height: 1.6;
+  background:  var(--background);
+  scroll-margin: 100px 0 0 0;
+}
+
+body.light {
+  background:  var(--background-light);
+  &::after {
+    display: none;
+  }
+}
+
+body::after {
+  content:'';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 580px;
+  height: 506px;
+  z-index: -1;
+  pointer-events: none;
+  //background: url(../images/logo.svg) top left / 100% 100% no-repeat;
+}
+
+::selection {
+  background: var(--contrast);
+  color: #FFF;
+}
+// Modules
+// ===============
+@import "modules/card";
+@import "modules/header";
+// Pages
+// ==================
+
+@import "pages/blog";
