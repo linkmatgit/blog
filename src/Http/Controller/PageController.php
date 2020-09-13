@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Http\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -9,7 +9,7 @@ class PageController extends AbstractController
 {
     /**
      * Retourne la page d'acceuil
-     * @Route("/", name="home")
+     * @Route("/", name="app_home")
      */
     public function index()
     {
@@ -18,7 +18,7 @@ class PageController extends AbstractController
     }
     /**
      * Retourne la page de contact
-     * @Route("/contact", name="contact")
+     * @Route("/contact", name="app_contact")
      */
 
     public function contact(){
