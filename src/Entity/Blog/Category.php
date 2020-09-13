@@ -2,6 +2,7 @@
 
 namespace App\Entity\Blog;
 
+use App\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -58,6 +59,16 @@ class Category
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private ?string $slug;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $color = null;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="categories")
+     */
+    private ?User $author;
 
     public function __construct()
     {
@@ -180,6 +191,30 @@ class Category
     public function setSlug(?string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(?string $color): self
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }

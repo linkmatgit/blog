@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Blog\Category;
 use App\Entity\Core\Content;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -54,10 +55,16 @@ class User implements UserInterface
      */
     private ?Collection $contents = null;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Category::class, mappedBy="author")
+     */
+    private $categories;
+
 
     public function __construct()
     {
         $this->contents = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -182,6 +189,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($content->getAuthor() === $this) {
                 $content->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Category[]
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Category $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+            $category->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): self
+    {
+        if ($this->categories->contains($category)) {
+            $this->categories->removeElement($category);
+            // set the owning side to null (unless already changed)
+            if ($category->getAuthor() === $this) {
+                $category->setAuthor(null);
             }
         }
 
