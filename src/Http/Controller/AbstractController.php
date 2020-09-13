@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Controller;
+namespace App\Http\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as AbstractController1;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 
 
-abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController
+abstract class AbstractController extends AbstractController1
 {
 
     /**

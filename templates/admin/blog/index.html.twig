@@ -1,0 +1,52 @@
+{% extends 'admin/layout/card.html.twig' %}
+
+{% block title %}
+    {{ icon('pen') }}
+    Gestion des articles
+{% endblock %}
+
+{% block content %}
+    <div class="flex">
+        <form class="form-group dashboard-search">
+            <input name="q" type="text" placeholder="Rechercher un article" value="{{ app.request.get('q') }}" >
+        </form>
+        <a href="{{ path('admin_blog_new') }}" class="dashboard-btn">Ajouter un article</a>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th class="text-center">Statut</th>
+            <th class="text-right">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for row in rows %}
+            {% set link = path('admin_blog_edit', {id: row.id}) %}
+            <tr>
+                <td class="dashboard-id">
+                    <a href="{{ link }}">{{ row.id }}</a>
+                </td>
+                <td>
+                    <a href="{{ link }}">{{ row.title }}</a>
+                </td>
+                <td><span class="bullet {% if row.isOnline == false %}bullet--danger{% endif %}"></span></td>
+                <td>
+                    <div class="dashboard-actions">
+                        <a href="{{ link }}">{{ icon('edit') }}</a>
+                        <form action="{{ path('admin_blog_edit', {id: row.id}) }}" method="post" onsubmit="return confirm('Voulez vous vraiment supprimer ce contenu')">
+                            <input type="hidden" name="_method" value="DELETE" />
+                            <button type="submit">
+                                {{ icon('delete') }}
+                            </button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {{ knp_pagination_render(rows) }}
+{% endblock %}

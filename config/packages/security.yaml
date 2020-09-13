@@ -14,19 +14,18 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-            user_checker: App\Security\EmailVerifier
         main:
             anonymous: true
             lazy: true
             provider: app_user_provider
             guard:
+                entry_point: App\Security\AuthServiceAuthenticator
                 authenticators:
                     - App\Security\AuthServiceAuthenticator
             logout:
                 path: app_logout
                 # where to redirect after logout
                 # target: app_any_route
-
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
 

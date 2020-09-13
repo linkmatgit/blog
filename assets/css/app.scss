@@ -91,7 +91,12 @@ body::after {
 // ===============
 @import "modules/card";
 @import "modules/header";
+@import "modules/form";
+@import "modules/btn";
+@import "modules/table";
+@import "modules/alert";
 // Pages
 // ==================
 
 @import "pages/blog";
+@import "pages/dashboard";

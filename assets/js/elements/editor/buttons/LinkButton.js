@@ -1,4 +1,4 @@
-import {strToDom} from '../../../functions/dom'
+import {strToDom} from '@fn/dom'
 import Button from './Button'
 
 export default class LinkButton extends Button {

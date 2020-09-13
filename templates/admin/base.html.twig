@@ -16,8 +16,23 @@
         <meta name="turbolinks-cache-control" content="no-cache"/>
     </head>
     <body>
-    {%  include 'nav/navigation.html.twig' %}
-
+    <nav class="header">
+        <ul class="header-nav">
+            <li><a href="#">Acceuil</a></li>
+            <li><a href="{{ path('admin_blog_index') }}">Blog</a></li>
+            <li><a href="#">Truc & astuce</a></li>
+            <li><a href="#">Live</a></li>
+            <li><a href="#">Mods</a></li>
+        </ul>
+        <ul class="header-side">
+            {% if app.user %}
+                <li class="header__account"><a href="{{ path('app_logout') }}"> {{ app.user.username }}</a>
+                </li>
+            {% else %}
+                <li class="header__account"><a href="{{ path('app_login') }}"> Se connecter</a></li>
+            {% endif %}
+        </ul>
+    </nav>
     <div class="dashboard py5">
 
         {% block body '' %}

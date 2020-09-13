@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace App\Http\Admin\Controller;
 
-use App\Data\CrudDataInterface;
+use App\Entity\Core\Content;
 use App\Helper\Paginator\PaginatorInterface;
+use App\Http\Admin\Data\CrudDataInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -15,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 abstract class CrudController extends BaseController {
 
-    protected string $entity = "";
+    protected string $entity = Content::class;
     protected string $templatePath = "blog";
     protected string $menuItem = " ";
     protected string $routePrefix = "";
@@ -25,7 +26,7 @@ abstract class CrudController extends BaseController {
         'delete' => null,
         'create' => null
     ];
-    private EntityManagerInterface $em;
+    protected EntityManagerInterface $em;
     private EventDispatcherInterface $dispatcher;
     private RequestStack $requestStack;
     private PaginatorInterface $paginator;

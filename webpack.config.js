@@ -8,8 +8,8 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 }
 
 Encore
-    .setOutputPath('public/build/')
-    .setPublicPath('/build')
+    .setOutputPath('public/assets/')
+    .setPublicPath('/assets')
     // only needed for CDN's or sub-directory deploy
     // .setManifestKeyPrefix('assets/')
     .addEntry('app', './assets/js/app.js')
@@ -66,7 +66,7 @@ Encore
 // uncomment if you're having problems with a jQuery plugin
 // .autoProvidejQuery()
 
-// uncomment if you use API Platform Admin (composer req api-admin)
+// uncomment if you use API Platform Controller (composer req api-admin)
 // .enableReactPreset()
 // .addEntry('admin', './assets/js/admin.js')
 

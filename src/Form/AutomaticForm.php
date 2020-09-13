@@ -3,15 +3,16 @@
 namespace App\Form;
 
 
+use App\Entity\User;
+use App\Http\Admin\Type\CategoryChoiceType;
+use App\Http\Admin\Type\DateTimeType;
+use App\Http\Admin\Type\EditorType;
+use App\Http\Admin\Type\UserChoiceType;
 use App\Type\SwitchType;
 use DateTimeInterface;
 use ReflectionClass;
-
-
 use Symfony\Component\Form\AbstractType;
-
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -31,14 +32,15 @@ class AutomaticForm extends AbstractType
         'float'                    => NumberType::class,
         DateTimeInterface::class => DateTimeType::class,
         UploadedFile::class      => FileType::class,
-
-    ];
+        User::class              => UserChoiceType::class
+        ];
 
     const NAMES = [
-
         'short' => TextareaType::class,
         'color' => ColorType::class,
         'position' => NumberType::class,
+        'category' => CategoryChoiceType::class,
+        'content' => EditorType::class
     ];
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

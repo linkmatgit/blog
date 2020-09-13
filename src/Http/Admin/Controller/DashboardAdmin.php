@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace App\Http\Admin\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 final class DashboardAdmin extends BaseController
 {
     /**
-     * @Route(" ", name="dashboard")
+     * @Route("", name="app_dashboard")
      */
     public function index()
     {

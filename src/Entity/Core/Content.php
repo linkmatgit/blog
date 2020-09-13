@@ -2,11 +2,15 @@
 
 namespace App\Entity\Core;
 
+use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="type", type="string")
+  * @ORM\DiscriminatorMap({
+ *     "posts" = "App\Entity\Blog\Post",
+ * })
  */
 
 abstract class Content
@@ -47,6 +51,13 @@ abstract class Content
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private ?string $slug =  null;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="contents")
+     */
+    private ?User $author = null;
+
+
 
     public function getId(): ?int
     {
@@ -124,6 +135,22 @@ abstract class Content
 
         return $this;
     }
+    /**
+     * @return User|null
+     */
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
 
+    /**
+     * @param User|null $author
+     * @return Content
+     */
+    public function setAuthor(?User $author): Content
+    {
+        $this->author = $author;
+        return $this;
+    }
 
 }

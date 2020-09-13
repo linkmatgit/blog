@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Data;
+namespace App\Http\Admin\Data;
 
 use App\Form\AutomaticForm;
 use Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
