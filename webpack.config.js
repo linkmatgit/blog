@@ -8,12 +8,13 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 }
 
 Encore
-    .setOutputPath('public/assets/')
-    .setPublicPath('/assets')
+    .setOutputPath('public/build/')
+    .setPublicPath('/build')
     // only needed for CDN's or sub-directory deploy
     // .setManifestKeyPrefix('assets/')
     .addEntry('app', './assets/js/app.js')
     .addEntry('admin', './assets/js/admin.js')
+    // .addEntry('admin', './assets/js/admin.js')
     // .splitEntryChunks()
     .enableSingleRuntimeChunk()
     .configureBabel(c => { return {} })
@@ -21,9 +22,7 @@ Encore
         svelte: path.resolve('node_modules', 'svelte'),
         '@fn': path.resolve('assets', 'js', 'functions'),
         '@el': path.resolve('assets', 'js', 'elements'),
-        '@comp': path.resolve('assets', 'js', 'components'),
-        'react': 'preact/compat',
-        'react-dom': 'preact/compat'
+        '@comp': path.resolve('assets', 'js', 'components')
     })
     .addLoader(
         {
@@ -38,15 +37,15 @@ Encore
                         }
                     }
                 }
-            },
+            }
         })
     /*
-     * FEATURE CONFIG
-     *
-     * Enable & configure other features below. For a full
-     * list of features, see:
-     * https://symfony.com/doc/current/frontend.html#adding-more-features
-     */
+         * FEATURE CONFIG
+         *
+         * Enable & configure other features below. For a full
+         * list of features, see:
+         * https://symfony.com/doc/current/frontend.html#adding-more-features
+         */
     .cleanupOutputBeforeBuild()
     // .enableBuildNotifications()
     .enableSourceMaps(!Encore.isProduction())
@@ -62,14 +61,14 @@ Encore
 
 // uncomment to get integrity="..." attributes on your script & link tags
 // requires WebpackEncoreBundle 1.4 or higher
-//.enableIntegrityHashes(Encore.isProduction())
+// .enableIntegrityHashes(Encore.isProduction())
 
 // uncomment if you're having problems with a jQuery plugin
-//.autoProvidejQuery()
+// .autoProvidejQuery()
 
 // uncomment if you use API Platform Admin (composer req api-admin)
-//.enableReactPreset()
-//.addEntry('admin', './assets/js/admin.js')
+// .enableReactPreset()
+// .addEntry('admin', './assets/js/admin.js')
 
 if (!Encore.isProduction()) {
     Encore.disableCssExtraction()

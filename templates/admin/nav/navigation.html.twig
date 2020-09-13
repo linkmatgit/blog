@@ -7,11 +7,11 @@
         <li><a href="#">Mods</a></li>
     </ul>
     <ul class="header-side">
-    {% if app.user %}
-        <li class="header__account"><a href="{{ path('app_logout') }}"> {{ app.user.username }}</a>
-        </li>
-    {% else %}
-        <li class="header__account"><a href="{{ path('app_login') }}"> Se connecter</a></li>
-    {% endif %}
+        {% if app.user %}
+            <li class="header__account"><a href="{{ path('app_logout') }}"> {{ app.user.username }}</a>
+            </li>
+        {% else %}
+            <li class="header__account"><a href="{{ path('app_login') }}"> Se connecter</a></li>
+        {% endif %}
     </ul>
 </nav>
