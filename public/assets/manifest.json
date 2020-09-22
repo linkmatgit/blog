@@ -5,7 +5,7 @@
   "assets/runtime.js": "http://localhost:8080/assets/runtime.js",
   "assets/vendors~CodeMirror.js": "http://localhost:8080/assets/vendors~CodeMirror.js",
   "assets/images/check.svg": "http://localhost:8080/assets/images/check.84f009ae.svg",
-  "assets/images/play.svg": "http://localhost:8080/assets/images/play.bad61a34.svg",
   "assets/images/hexagon.svg": "http://localhost:8080/assets/images/hexagon.a63c53be.svg",
-  "assets/images/input-search.svg": "http://localhost:8080/assets/images/input-search.286ece17.svg"
+  "assets/images/input-search.svg": "http://localhost:8080/assets/images/input-search.286ece17.svg",
+  "assets/images/play.svg": "http://localhost:8080/assets/images/play.bad61a34.svg"
 }

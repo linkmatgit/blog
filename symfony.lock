@@ -134,6 +134,9 @@
     "fig/link-util": {
         "version": "1.1.1"
     },
+    "fzaninotto/faker": {
+        "version": "v1.9.1"
+    },
     "knplabs/knp-components": {
         "version": "v2.4.2"
     },
@@ -154,6 +157,19 @@
     },
     "myclabs/deep-copy": {
         "version": "1.10.1"
+    },
+    "nelmio/alice": {
+        "version": "3.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.2",
+            "ref": "0b9900ece737bec7752e4155c0164639dd9b0cb0"
+        },
+        "files": [
+            "./config/packages/dev/nelmio_alice.yaml",
+            "./config/packages/test/nelmio_alice.yaml"
+        ]
     },
     "nelmio/cors-bundle": {
         "version": "1.5",
@@ -712,6 +728,15 @@
     },
     "symfonycasts/verify-email-bundle": {
         "version": "v1.0.0"
+    },
+    "theofidry/alice-data-fixtures": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "fe5a50faf580eb58f08ada2abe8afbd2d4941e05"
+        }
     },
     "theseer/tokenizer": {
         "version": "1.2.0"

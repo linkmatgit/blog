@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title title %}
+{% block body %}
+    <div class="container stack">
+{% for post in posts %}
+    {% set link = path('app_blog_show', {slug: post.slug, id: post.id}) %}
+   <div style="display: block" >
+       <h2 class="h3"><a href="{{ link }}">{{ post.title }}</a> </h2>
+
+       <div class="markdown">{{ post.content }} </div>
+
+ <div class="home-post__author"></div> {% if post.author %}
+    {{ post.author.username }}
+       {% endif %}</div>
+    <div class="blog-post__meta"> {{ post.createdAt | ago }}</div>
+    {% if post.category %}
+       Dans la Catégorie <div  class="blog-post__meta" style=" color: {{ post.category.color }}"> {{ post.category.title }}</div>
+    {% endif %}
+{% endfor %}
+    {{ knp_pagination_render(posts) }}
+    </div>
+{% endblock %}

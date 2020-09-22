@@ -111,3 +111,45 @@
     grid-column: -2 / -1!important;
   }
 }
+.countCard {
+  display: flex;
+  }
+.card__count{
+  @extend %card-big;
+  margin-right: space(2);
+  margin-top:space(2);
+  padding: space(1);
+  color: var(--background-light);
+  width: 15%;
+  height: 120px;
+  border-radius:20px;
+  border: 2px solid black;
+  }
+
+.card__count span:first-child {
+  font-size: 26px;
+  font-weight: bold;
+  display: block;
+  border-bottom: 1px solid #fff;
+  text-align: center;
+}
+
+.card_count_post{
+  background-color: #0B7FC7;
+}
+.card_count_Category {
+  background-color: #aa1111;
+}
+.card_count_user{
+  background-color: #43A047;
+}
+.card_count_trick {
+  background-color: #8B2BB9;
+}
+.dashboard__count{
+  font-size: 26px;
+  font-weight: bold;
+  display: block;
+  text-align: center;
+  padding-top: space(2);
+}

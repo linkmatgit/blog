@@ -1,10 +1,13 @@
 <?php
 
-namespace App\Repository;
+namespace App\Repository\Blog;
 
 
+use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Response;
+use App\Entity\Blog\Category;
 use App\Entity\Blog\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -20,32 +23,29 @@ class PostRepository extends ServiceEntityRepository
         parent::__construct($registry, Post::class);
     }
 
-    // /**
-    //  * @return Posts[] Returns an array of Posts objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function queryAll(?Category $category = null): Query
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $query = $this->createQueryBuilder('p')
+            ->select('p')
+            ->where('p.isOnline = true')
+            ->orderBy('p.createdAt', 'DESC');
 
-    /*
-    public function findOneBySomeField($value): ?Posts
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        if ($category) {
+            $query = $query
+                ->andWhere('p.category = :category')
+                ->setParameter('category', $category);
+        }
+
+        return $query->getQuery();
     }
-    */
+
+    public function countPost(){
+        return $this->createQueryBuilder('p')
+            ->select('count(p.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+
+        
+    }
 }

@@ -1,3 +1,4 @@
+
 export function Icon({name}) {
   const className = `icon icon-${name}`
   const href = `/sprite.svg#${name}`

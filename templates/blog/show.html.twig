@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="blog-post">
+    <div class="blog-post__image"> {{ post.title }}</div>
+    {{ post.createdAt | ago }}
+    {% if post.author %}
+    {{ post.author.username }}
+    {% endif %}
+
+{{ post.content }}
+    </div></div>
+{% endblock %}

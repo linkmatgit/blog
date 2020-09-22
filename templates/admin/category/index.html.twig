@@ -2,7 +2,7 @@
 
 {% block title %}
     {{ icon('pen') }}
-    Gestion des articles
+    Gestion des categories
 {% endblock %}
 
 {% block content %}
@@ -10,7 +10,7 @@
         <form class="form-group dashboard-search">
             <input name="q" type="text" placeholder="Rechercher un article" value="{{ app.request.get('q') }}" >
         </form>
-        <a href="{{ path('admin_blog_new') }}" class="dashboard-btn">Ajouter un article</a>
+        <a href="{{ path('admin_category_new') }}" class="dashboard-btn">Ajouter une catégorie</a>
     </div>
     <table class="table">
         <thead>
@@ -35,7 +35,7 @@
                 <td>
                     <div class="dashboard-actions">
                         <a href="{{ link }}">{{ icon('edit') }}</a>
-                        <form action="{{ path('admin_blog_edit', {id: row.id}) }}" method="post" onsubmit="return confirm('Voulez vous vraiment supprimer ce contenu')">
+                        <form action="{{ path('admin_category_delete', {id: row.id}) }}" method="post" onsubmit="return confirm('Voulez vous vraiment supprimer ce contenu')">
                             <input type="hidden" name="_method" value="DELETE" />
                             <button type="submit">
                                 {{ icon('delete') }}

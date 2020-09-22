@@ -54,7 +54,7 @@ Encore
 
     // enables Sass/SCSS support
     .enableSassLoader()
-    .enablePreactPreset({ preactCompat: true })
+    .enableReactPreset()
 
 // uncomment if you use TypeScript
 // .enableTypeScriptLoader()

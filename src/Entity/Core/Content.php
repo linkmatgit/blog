@@ -2,17 +2,20 @@
 
 namespace App\Entity\Core;
 
+use App\Entity\Comment\Comment;
 use App\Entity\User;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="type", type="string")
   * @ORM\DiscriminatorMap({
- *     "posts" = "App\Entity\Blog\Post",
+  *      "post" = "App\Entity\Blog\Post",
+  *       "trick" = "App\Entity\Trick\Trick",
  * })
  */
-
 abstract class Content
 {
     /**
@@ -57,11 +60,31 @@ abstract class Content
      */
     private ?User $author = null;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="target")
+     */
+    private Collection $comment;
 
+    public function __construct()
+    {
+        $this->comment = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     *
+     * @param int|null $id
+     * @return $this
+     */
+    public function setId(?int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getTitle(): ?string
@@ -150,6 +173,37 @@ abstract class Content
     public function setAuthor(?User $author): Content
     {
         $this->author = $author;
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getYes(): Collection
+    {
+        return $this->comment;
+    }
+
+    public function addYe(Comment $comment): self
+    {
+        if (!$this->comment->contains($comment)) {
+            $this->comment[] = $comment;
+            $comment->setTarget($this);
+        }
+
+        return $this;
+    }
+
+    public function removeYe(Comment $comment): self
+    {
+        if ($this->comment->contains($comment)) {
+            $this->comment->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getTarget() === $this) {
+                $comment->setTarget(null);
+            }
+        }
+
         return $this;
     }
 

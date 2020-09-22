@@ -18,8 +18,8 @@ final class CategoryCrudData implements CrudDataInterface {
     public ?string  $color = null;
     public ?bool $isOnline = false;
     public ?string  $content = null;
-    public ?Category $category = null;
     private ?EntityManagerInterface $em;
+
 
     public function __construct(Category $category)
     {
@@ -31,6 +31,7 @@ final class CategoryCrudData implements CrudDataInterface {
         $this->createdAt = $category->getCreatedAt();
         $this->author = $category->getAuthor();
         $this->color = $category->getColor();
+
     }
 
     public function getEntity(): object
@@ -61,4 +62,5 @@ final class CategoryCrudData implements CrudDataInterface {
         $this->em = $em;
         return $this;
     }
+
 }

@@ -98,3 +98,4 @@ rollback:
 .PHONY: bashtest
 bashtest: ## Ouvre un Terminal dans que containerdrtest := $(dc) -f docker-compose.test.yml run --rm php
 	$(dc) -f docker-compose.test.yml run --rm
+

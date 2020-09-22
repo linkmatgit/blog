@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\Blog\CategoryRepository")
  * @ORM\Table("blog_category")
  */
 class Category
@@ -51,24 +51,26 @@ class Category
     private int $postCount = 0;
 
     /**
-     * @ORM\OneToMany(targetEntity=Post::class, mappedBy="category")
+     * @ORM\OneToMany(targetEntity=Post::class, mappedBy="category" )
      */
     private Collection $Post;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private ?string $slug;
+    private ?string $slug = '';
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
-    private ?string $color = null;
+    private ?string $color = '';
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="categories")
+     * @ORM\JoinColumn(onDelete="CASCADE", nullable=true, name="user_id")
      */
     private ?User $author;
+
 
     public function __construct()
     {
@@ -153,7 +155,7 @@ class Category
     }
 
     /**
-     * @return Collection|Posts[]
+     * @return Collection|Post[]
      */
     public function getPost(): Collection
     {

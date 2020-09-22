@@ -1,0 +1,69 @@
+<?php
+
+namespace App\Http\Api\DataProvider;
+
+use ApiPlatform\Core\DataProvider\CollectionDataProviderInterface;
+use ApiPlatform\Core\DataProvider\ItemDataProviderInterface;
+use ApiPlatform\Core\DataProvider\RestrictedDataProviderInterface;
+use ApiPlatform\Core\Exception\RuntimeException;
+use App\Entity\Comment\Comment;
+use App\Http\Api\Resource\CommentResource;
+use App\Repository\Comments\CommentRepository;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+
+class CommentApiProvider implements CollectionDataProviderInterface, RestrictedDataProviderInterface, ItemDataProviderInterface
+{
+    private RequestStack $requestStack;
+    private CommentRepository $commentRepository;
+
+    public function __construct(
+        RequestStack $requestStack,
+        CommentRepository $commentRepository
+    ) {
+        $this->requestStack = $requestStack;
+        $this->commentRepository = $commentRepository;
+    }
+
+    public function supports(string $resourceClass, string $operationName = null, array $context = []): bool
+    {
+        return CommentResource::class === $resourceClass;
+    }
+
+    /**
+     * @param string $resourceClass
+     * @param string|null $operationName
+     * @return array<CommentResource>
+     */
+    public function getCollection(string $resourceClass, string $operationName = null): array
+    {
+        $request = $this->requestStack->getCurrentRequest();
+        if (null === $request) {
+            throw new RuntimeException('Requête introuvable');
+        }
+        $contentId = (int) $request->get('content');
+        if (0 === $contentId) {
+            throw new HttpException(Response::HTTP_BAD_REQUEST, 'Aucun contenu ne correspond à cet ID');
+        }
+
+        return array_map(
+            fn (Comment $comment) => CommentResource::fromComment($comment),
+            $this->commentRepository->findForApi($contentId)
+        );
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @param int|array $id
+     */
+    public function getItem(string $resourceClass, $id, string $operationName = null, array $context = [])
+    {
+        if (is_array($id)) {
+            throw new RuntimeException('id as array not expected');
+        }
+
+        return CommentResource::fromComment($this->commentRepository->findPartial((int) $id));
+    }
+}

@@ -1,0 +1,11 @@
+include:
+  - templates.yaml
+
+App\Entity\Blog\Post:
+  post{1..100} (extends post):
+
+App\Entity\User:
+  user{1..5} (extends user):
+  admin (extends user):
+    username: linkmat
+    email: linkmat@linkmat.ca

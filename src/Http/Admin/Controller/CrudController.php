@@ -85,7 +85,6 @@ abstract class CrudController extends BaseController {
         $form = $this->createForm($data->getFormClass(), $data);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
             $entity = $data->getEntity();
             $data->hydrate();
             $this->em->persist($entity);

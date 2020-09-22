@@ -1,0 +1,15 @@
+App\Entity\Blog\Post:
+  post (template):
+    title: <sentence(5, true)>
+    slug: <slug()>
+    content: <text(1500)>
+    created_at: <dateTimeThisYear()>
+    updated_at: <dateTimeThisYear()>
+    online: true
+    author: '@user1'
+
+App\Entity\User:
+  user (template):
+    username: John<current()>
+    email: john<current()>\@doe.fr
+    password: <password('0000')>
