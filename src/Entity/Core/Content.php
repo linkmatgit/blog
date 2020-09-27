@@ -2,18 +2,25 @@
 
 namespace App\Entity\Core;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Comment\Comment;
 use App\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 /**
  * @ORM\Entity
+ * @ApiResource(
+ *     collectionOperations={},
+ *     itemOperations={"get"}
+ * )
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="type", type="string")
   * @ORM\DiscriminatorMap({
   *      "post" = "App\Entity\Blog\Post",
-  *       "trick" = "App\Entity\Trick\Trick",
+  *      "trick" = "App\Entity\Trick\Trick",
  * })
  */
 abstract class Content
@@ -22,11 +29,13 @@ abstract class Content
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
+    * @Groups({"read:comment"})
      */
     private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+    * @Groups({"read:comment"})
      */
     private ?string $title = null;
 

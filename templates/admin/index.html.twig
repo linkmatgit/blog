@@ -5,7 +5,7 @@
    {% endblock %}
 
 {% block content %}
-        <div class="dashboard_tag_link">test</div>
+        <div class="dashboard_tag_link">{{ ip }}</div>
     <div class="countCard">
     <div class="card__count card_count_post"><span >Post{% if countPost > 1  %}s{% endif %}  </span> <span class="dashboard__count">{{ countPost }}</span> </div>
     <div class="card__count card_count_Category"><a href="{{ path('admin_category_index') }}"><span>Catégorie{% if countCat > 1 %}s{% endif %}</span><span class="dashboard__count"> {{ countCat }} </span></a></div>

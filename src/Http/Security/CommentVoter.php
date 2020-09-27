@@ -1,0 +1,47 @@
+<?php
+
+namespace App\Http\Security;
+
+
+use App\Entity\Comment\Comment;
+use App\Entity\User;
+use App\Http\Api\Resource\CommentResource;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+
+class CommentVoter extends Voter
+{
+    const DELETE = 'delete';
+    const UPDATE = 'update';
+
+    protected function supports(string $attribute, $subject)
+    {
+        return in_array($attribute, [
+                self::DELETE,
+                self::UPDATE,
+            ]) && ($subject instanceof Comment || $subject instanceof CommentResource);
+    }
+
+    /**
+     * @param string                  $attribute
+     * @param Comment|CommentResource $subject
+     */
+    protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
+    {
+        $user = $token->getUser();
+
+        if (!$user instanceof User) {
+            return false;
+        }
+
+        if ($subject instanceof CommentResource) {
+            $subject = $subject->entity;
+        }
+
+        if (null === $subject) {
+            return false;
+        }
+
+        return null !== $subject->getAuthor() && $subject->getAuthor()->getId() === $user->getId();
+    }
+}

@@ -2,8 +2,10 @@
 
 namespace App\Repository\Comments;
 
+use App\Entity\Blog\Post;
 use App\Entity\Comment\Comment;
 use App\Entity\Core\Content;
+use App\Repository\Blog\PostRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityNotFoundException;
 use Doctrine\ORM\Query;
@@ -32,7 +34,7 @@ class CommentRepository extends ServiceEntityRepository
     public function findForApi(int $content): array
     {
         // Force l'enregistrement de l'entité dans l'entity manager pour éviter les requêtes supplémentaires
-        $this->_em->getReference(Content::class, $content);
+        $this->_em->getReference(Post::class, $content);
 
         return $this->createQueryBuilder('c')
             ->select('c, u')

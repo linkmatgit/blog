@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Comment\Comment;
 use App\Entity\Blog\Category;
 use App\Entity\Core\Content;
@@ -13,10 +14,15 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity(fields={"username"}, message="Ce Pseudonyme est dèja prit")
+ *  * @ApiResource(
+ *     collectionOperations={},
+ *     itemOperations={"get"}
+ * )
  */
 class User implements UserInterface
 {
@@ -30,6 +36,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * * @Groups({"read:comment"})
      */
     private string $username = '';
 
@@ -68,6 +75,16 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="author")
      */
     private Collection $comments;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $RegistrationIP;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $LastLoginIp;
 
     use FacebookTrait;
     use GoogleTrait;
@@ -266,6 +283,30 @@ class User implements UserInterface
                 $comment->setAuthor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRegistrationIP(): ?string
+    {
+        return $this->RegistrationIP;
+    }
+
+    public function setRegistrationIP(?string $RegistrationIP): self
+    {
+        $this->RegistrationIP = $RegistrationIP;
+
+        return $this;
+    }
+
+    public function getLastLoginIp(): ?string
+    {
+        return $this->LastLoginIp;
+    }
+
+    public function setLastLoginIp(?string $LastLoginIp): self
+    {
+        $this->LastLoginIp = $LastLoginIp;
 
         return $this;
     }

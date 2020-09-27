@@ -21,7 +21,6 @@ services:
       - db
       - mail
       - redis
-      - typesense
       - mercure
     depends_on:
       - db
@@ -69,15 +68,6 @@ services:
       - ./public/uploads:/mnt/images/uploads
   redis:
     image: redis:5-alpine
-  typesense:
-    image: typesense/typesense:0.12.0-rc2
-    environment:
-      TYPESENSE_DATA_DIR: /data
-      TYPESENSE_API_KEY: typesensekey
-    volumes:
-      - search-data:/data
-    ports:
-      - 8108:8108
   mercure:
     image: dunglas/mercure
     environment:

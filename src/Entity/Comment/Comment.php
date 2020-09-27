@@ -2,14 +2,21 @@
 
 namespace App\Entity\Comment;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiProperty;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Action\NotFoundAction;
 use App\Entity\Core\Content;
 use App\Entity\User;
-
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\Comments\CommentRepository")
  */
+
 class Comment
 {
     /**
@@ -21,18 +28,22 @@ class Comment
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+    * @Assert\NotBlank()
+
+     * @Assert\Email()
      */
     private ?string $email = null;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank()
      */
     private ?string $username = null;
 
     /**
      * @ORM\Column(type="text")
      */
-    private string $content = ' ';
+    private string $content;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -47,7 +58,9 @@ class Comment
 
     /**
      * @ORM\ManyToOne(targetEntity=Content::class, inversedBy="comment")
-     * @ORM\JoinColumn(onDelete="CASCADE", nullable=false, name="content_id")
+     * @ORM\JoinColumn(onDelete="CASCADE", nullable=false)
+     * @Assert\NotBlank()
+     * @Assert\Length(min="4")
      */
     private Content $target;
 
@@ -104,7 +117,7 @@ class Comment
         return $this->content;
     }
 
-    public function setContent(?string $content): self
+    public function setContent(string $content): self
     {
         $this->content = $content;
 
@@ -144,7 +157,7 @@ class Comment
     {
         $this->target = $target;
 
-        return $this;
+        return  $this;
     }
 
     public function getAuthor(): ?User
